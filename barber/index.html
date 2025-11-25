@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbearia - Agendamentos</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f3f3; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 32px; margin-bottom: 20px; }
+    .card { background: white; padding: 20px; width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-bottom: 20px; }
+    input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; }
+    button { width: 100%; padding: 12px; border: none; background: black; color: white; border-radius: 10px; cursor: pointer; font-size: 16px; }
+    .agendamento-item { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Barbearia - Agendamentos</h1>
+
+  <div class="card">
+    <form id="formAgendamento">
+      <input type="text" name="nome" placeholder="Nome" required />
+      <input type="text" name="telefone" placeholder="Telefone" required />
+      <input type="date" name="data" required />
+      <input type="time" name="hora" required />
+      <button type="submit">Agendar</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Agendamentos</h2>
+    <div id="listaAgendamentos"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formAgendamento");
+    const lista = document.getElementById("listaAgendamentos");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const agendamento = {
+        nome: formData.get("nome"),
+        telefone: formData.get("telefone"),
+        data: formData.get("data"),
+        hora: formData.get("hora")
+      };
+
+      const div = document.createElement("div");
+      div.className = "agendamento-item";
+      div.innerHTML = `
+        <p><strong>Nome:</strong> ${agendamento.nome}</p>
+        <p><strong>Telefone:</strong> ${agendamento.telefone}</p>
+        <p><strong>Data:</strong> ${agendamento.data}</p>
+        <p><strong>Hora:</strong> ${agendamento.hora}</p>
+      `;
+
+      lista.appendChild(div);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
